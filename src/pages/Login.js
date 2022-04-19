@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
-import { createUser } from '../services/userAPI';
+import { createUser, getUser } from '../services/userAPI';
 
 export default class Login extends Component {
   constructor() {
@@ -10,53 +10,24 @@ export default class Login extends Component {
       name: '',
       buttonSubmitDisable: true,
       loading: false,
+      changeSearch: false,
     };
   }
-  // ✕ Será validado se ao clicar no botão, a mensagem Carregando... é exibida e após a resposta da API acontece o redirecionamento para a rota /search
 
-  // quando clicar no botao aparece a msg Carregando..., ou seja loading é true
-  // executa createUser
-  // para de carregar
-  // redireciona para search
-  onSubmit = (event) => {
-    event.preventDefault();
-    /* const { history } = this.props;
-    history.push('/search'); */
-    console.log('esse é o onSubmit');
+  // quando clicar em Login, carrega e entra na pasta Search
+   onClick = async () => {
+     console.log('esse é o onSubmit');
 
-    const { loading, name } = this.state;
-    // createUser({ name });
-    this.setState({
-      loading: true,
-    });
-    createUser({ name });
-    if (loading) {
-      this.setState({
-        loading: false,
-      }, () => {
-        <Redirect to="/search" />;
-      });
-    }
-    /*      this.setState((prevState) => (
-         // console.log(prevState.loading))
-         {
-        loading: prevState.loading
-     })) */
-  }
-
-  /* this.setState({
-      loading: true,
-    }, () => {
-      if (loading) {
-        <Loading />;
-      } else {
-        createUser({ name });
-        this.setState({
-          loading: false,
-        });
-      }
-    });
-  } */
+     const { loading, name, changeSearch } = this.state;
+     this.setState({
+       loading: true,
+     });
+     await createUser({ name });
+     this.setState({
+       loading: false,
+       changeSearch: true,
+     });
+   };
 
   // verificar o que está sendo digitado e habilitar o botao de enviar
   onInputChange = ({ target }) => {
@@ -74,7 +45,7 @@ export default class Login extends Component {
   }
 
   render() {
-    const { buttonSubmitDisable, loading /* name */ } = this.state;
+    const { buttonSubmitDisable, loading, changeSearch /* name */ } = this.state;
     if (loading) return <Loading />;
 
     return (
@@ -96,8 +67,7 @@ export default class Login extends Component {
             <button
               type="button"
               disabled={ buttonSubmitDisable }
-              onClick={ this.onSubmit }
-              // min="3"
+              onClick={ this.onClick }
               name="login-button"
               data-testid="login-submit-button"
             >
@@ -105,13 +75,16 @@ export default class Login extends Component {
             </button>
           </label>
           <div>
-            {/* {
-              loading && <Redirect to="/search" />
-            } */}
+            {
+              changeSearch && <Redirect to="/search" />
+            }
           </div>
         </form>
       </div>
     );
   }
 }
-// <Redirect to="/search" />
+// outra forma de redirecionar a pagina
+// Mentoria do Muca
+/* const { history } = this.props;
+   history.push('/search' - pagina desejada); */

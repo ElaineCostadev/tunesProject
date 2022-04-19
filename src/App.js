@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch /* Link */ } from 'react-router-dom';
 import Login from './pages/Login';
 import Search from './pages/Search';
 import Album from './pages/Album';
@@ -43,11 +43,11 @@ class App extends React.Component {
 
         <nav>
           {/* <Link to={ `album/${id}` }>Album</Link> */}
-          <Link to="/search">Search</Link>
+          {/*   <Link to="/search">Search</Link>
           <Link to="/favorites">Favorites</Link>
           <Link to="/profile">Profile</Link>
           <Link to="/profile/edit">ProfileEdit</Link>
-          <Link to="/">Login</Link>
+          <Link to="/">Login</Link> */}
           {/* <Link to="">NotFound</Link> */}
 
         </nav>

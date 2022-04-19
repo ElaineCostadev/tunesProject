@@ -7,9 +7,22 @@ import Favorites from './pages/Favorites';
 import Profile from './pages/Profile';
 import ProfileEdit from './pages/ProfileEdit';
 import NotFound from './pages/NotFound';
+/* import Loading from './components/Loading';
+import { Redirect } from 'react-router-dom'; */
 
 class App extends React.Component {
+/*   constructor() {
+    super();
+    this.state = {
+      login: 'testando state login',
+      buttonSubmitDisable: false,
+    };
+  } */
+
+  // componentDidUpdate atualiza
+
   render() {
+    // const { buttonSubmitDisable } = this.state;
     return (
       <main>
 
@@ -23,6 +36,7 @@ class App extends React.Component {
             <Route exact path="/profile/edit" component={ ProfileEdit } />
             <Route path="/profile" component={ Profile } />
             <Route exact path="/" component={ Login } />
+            {/* Loading ? <Redirect to="/search" /> : <Login /> */}
             <Route path="*" component={ NotFound } />
           </Switch>
         </div>
@@ -44,3 +58,7 @@ class App extends React.Component {
 }
 
 export default App;
+
+/* window.onload = async () => {
+  // funcoes aqui
+} */

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
-import { createUser, getUser } from '../services/userAPI';
+import { createUser } from '../services/userAPI';
 
 export default class Login extends Component {
   constructor() {
@@ -16,9 +16,7 @@ export default class Login extends Component {
 
   // quando clicar em Login, carrega e entra na pasta Search
    onClick = async () => {
-     console.log('esse é o onSubmit');
-
-     const { loading, name, changeSearch } = this.state;
+     const { name } = this.state;
      this.setState({
        loading: true,
      });
@@ -37,9 +35,9 @@ export default class Login extends Component {
       // const { buttonSubmitDisable } = this.state;
       const three = 3;
       if (target.value.length >= three) {
-        this.setState({
-          buttonSubmitDisable: false,
-        });
+        this.setState({ buttonSubmitDisable: false });
+      } else {
+        this.setState({ buttonSubmitDisable: true });
       }
     });
   }

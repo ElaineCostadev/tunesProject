@@ -11,18 +11,7 @@ import NotFound from './pages/NotFound';
 import { Redirect } from 'react-router-dom'; */
 
 class App extends React.Component {
-/*   constructor() {
-    super();
-    this.state = {
-      login: 'testando state login',
-      buttonSubmitDisable: false,
-    };
-  } */
-
-  // componentDidUpdate atualiza
-
   render() {
-    // const { buttonSubmitDisable } = this.state;
     return (
       <main>
 
@@ -43,9 +32,7 @@ class App extends React.Component {
 
         <nav>
           {/* <Link to={ `album/${id}` }>Album</Link> */}
-          {/*   <Link to="/search">Search</Link>
-          <Link to="/favorites">Favorites</Link>
-          <Link to="/profile">Profile</Link>
+          {/*
           <Link to="/profile/edit">ProfileEdit</Link>
           <Link to="/">Login</Link> */}
           {/* <Link to="">NotFound</Link> */}

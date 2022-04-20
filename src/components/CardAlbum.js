@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import './CardAlbum.css';
+import PropTypes from 'prop-types';
 
 export default class CardAlbum extends Component {
   render() {
@@ -37,3 +38,13 @@ export default class CardAlbum extends Component {
     );
   }
 }
+
+CardAlbum.propTypes = {
+  artistName: PropTypes.string.isRequired,
+  collectionId: PropTypes.string.isRequired,
+  collectionName: PropTypes.string.isRequired,
+  collectionPrice: PropTypes.string.isRequired,
+  artworkUrl100: PropTypes.string.isRequired,
+  releaseDate: PropTypes.string.isRequired,
+  trackCount: PropTypes.string.isRequired,
+};

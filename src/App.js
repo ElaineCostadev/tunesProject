@@ -25,19 +25,9 @@ class App extends React.Component {
             <Route exact path="/profile/edit" component={ ProfileEdit } />
             <Route path="/profile" component={ Profile } />
             <Route exact path="/" component={ Login } />
-            {/* Loading ? <Redirect to="/search" /> : <Login /> */}
             <Route path="*" component={ NotFound } />
           </Switch>
         </div>
-
-        <nav>
-          {/* <Link to={ `album/${id}` }>Album</Link> */}
-          {/*
-          <Link to="/profile/edit">ProfileEdit</Link>
-          <Link to="/">Login</Link> */}
-          {/* <Link to="">NotFound</Link> */}
-
-        </nav>
 
       </main>
     );

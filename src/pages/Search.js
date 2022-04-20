@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
+import Loading from '../components/Loading';
+import CardAlbum from '../components/CardAlbum';
 
 export default class Search extends Component {
   constructor() {
@@ -8,6 +11,8 @@ export default class Search extends Component {
     this.state = {
       name: '',
       buttonSearch: true,
+      loading: false,
+      albuns: [],
     };
   }
 
@@ -28,58 +33,84 @@ export default class Search extends Component {
     });
   }
 
-  getAPI = async () => {
+  // Botao Pesquisar - chama a API e altera os states
+  onClick = async () => {
+    // console.log('esse é o Onclick, de pesquisar');
     const { name } = this.state;
+    this.setState({
+      loading: true,
+    });
     const api = await searchAlbumsAPI(name);
-    return console.log('esse é o getAPI', api);
+    this.setState({
+      loading: false,
+      albuns: api,
+    });
   }
 
-  onClick= async () => {
-    const { name } = this.state;
-
-    console.log('este é o botao de pesquisar');
-
-    const api = await searchAlbumsAPI(name);
-
-    console.log(api);
-
-    // peguei o botao
-    // limpar o input
-    // API searchAlbumsAPIs.js espera receber uma string - o que foi digitado, nome da banda ou artista
-    // como vou pegar esses dados para inserir em searchAPI?
-  }
-
+  // limpa o input
   clearInput = () => {
     target.value = '';
   }
 
   render() {
-    const { buttonSearch } = this.state;
+    const { buttonSearch, loading, name, albuns } = this.state;
     return (
       <div data-testid="page-search">
         <Header />
         Search - pagina de busca, dentro do site, após o login dar certo.
-        <form>
-          <label htmlFor="search">
-            Arista ou Banda
-            <input
-              type="text"
-              name="name"
-              placeholder="Digite o nome do artista ou banda"
-              onChange={ this.onInputChange }
-              data-testid="search-artist-input"
-            />
-            <button
-              name="button-search"
-              type="button"
-              disabled={ buttonSearch }
-              onClick={ this.onClick }
-              data-testid="search-artist-button"
-            >
-              Pesquisar
-            </button>
-          </label>
-        </form>
+        {
+          loading
+            ? (<Loading />)
+            : (
+              <form>
+                <label htmlFor="search">
+                  Arista ou Banda
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Digite o nome do artista ou banda"
+                    onChange={ this.onInputChange }
+                    data-testid="search-artist-input"
+                  />
+                  <button
+                    name="button-search"
+                    type="button"
+                    disabled={ buttonSearch }
+                    onClick={ this.onClick }
+                    data-testid="search-artist-button"
+                  >
+                    Pesquisar
+                  </button>
+                </label>
+              </form>
+            )
+        }
+        {
+          (albuns.length > 0)
+            ? (`Resultado de álbuns de: ${name}`)
+            : (<p>Nenhum álbum foi encontrado</p>)
+        }
+        <ul>
+          {
+            albuns.map((album) => (
+              <li
+                key={ album.collectionId }
+              >
+                <CardAlbum
+                  artistName={ album.artistName }
+                  collectionId={ album.collectionId }
+                  collectionName={ album.collectionName }
+                  collectionPrice={ album.collectionPrice }
+                  artworkUrl100={ album.artworkUrl100 }
+                  releaseDate={ album.releaseDate }
+                  trackCount={ album.trackCount }
+                />
+                <Link to="/album/:id" />
+              </li>
+            ))
+          }
+        </ul>
+
       </div>
     );
   }

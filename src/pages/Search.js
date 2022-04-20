@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
@@ -16,9 +15,10 @@ export default class Search extends Component {
     };
   }
 
-  componentDidMount() {
+  // começou a quebrar a aplicação com o erro Unhandled Rejection (TypeError): Failed to fetch
+  /*    componentDidMount() {
     this.onClick();
-  }
+  }  */
 
   onInputChange = ({ target }) => {
     this.setState({
@@ -105,7 +105,6 @@ export default class Search extends Component {
                   releaseDate={ album.releaseDate }
                   trackCount={ album.trackCount }
                 />
-                <Link to="/album/:id" />
               </li>
             ))
           }

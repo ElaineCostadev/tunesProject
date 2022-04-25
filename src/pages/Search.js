@@ -15,11 +15,6 @@ export default class Search extends Component {
     };
   }
 
-  // começou a quebrar a aplicação com o erro Unhandled Rejection (TypeError): Failed to fetch
-  /*    componentDidMount() {
-    this.onClick();
-  }  */
-
   onInputChange = ({ target }) => {
     this.setState({
       [target.name]: target.value,

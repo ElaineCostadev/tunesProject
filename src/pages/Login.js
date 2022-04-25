@@ -43,6 +43,7 @@ export default class Login extends Component {
   }
 
   render() {
+    // const { userName } = this.props;
     const { buttonSubmitDisable, loading, changeSearch /* name */ } = this.state;
     if (loading) return <Loading />;
 
@@ -78,6 +79,7 @@ export default class Login extends Component {
             }
           </div>
         </form>
+        {/*  <p userName={ dataUser.name } /> */}
       </div>
     );
   }

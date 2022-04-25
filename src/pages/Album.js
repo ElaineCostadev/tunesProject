@@ -9,9 +9,9 @@ export default class Album extends Component {
   constructor() {
     super();
     this.state = {
-      musics: [],
-      musicsOrigin: '',
-      getFavorites: [],
+      musics: [], // essa é a lista de musicas
+      musicsOrigin: '', // esse é o objeto completo para pegar o album e o artista
+      getFavorites: [], // esse salva as informações da lista salva dos favoritos no localstorage
     };
   }
 
@@ -34,13 +34,19 @@ export default class Album extends Component {
     this.setState({ musicsOrigin: newResult[0], musics: newResult });
   }
 
-  /*   .then((result) => { */
-  // Ajuda mentoria e Jonathan, Samuel e Vinicius.
-  // Pego o 1º item que tem a informacao do artista e album.
-  // const newResult = result[0];
-  // seto os dois states -  um preciso do 1º item  e outro que vou fazer o map
-  /*    this.setState({ musicsOrigin: result[0], musics: result });
-  }); */
+  componentDidUpdate = async () => {
+    this.toUpdateAlbum();
+  }
+
+  toUpdateAlbum = async () => {
+    const result2 = await getFavoriteSongs();
+    const { loading } = this.state;
+    if (!loading) {
+      this.setState({
+        getFavorites: result2,
+      });
+    }
+  }
 
   render() {
     const { musics, musicsOrigin, getFavorites } = this.state;

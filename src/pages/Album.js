@@ -25,16 +25,7 @@ export default class Album extends Component {
     this.pegarMusicas();
   }
 
-  pegarMusicas = async () => {
-    // atraves do match consigo ter o id da Route que fica guardado no params - pego de la o id e pego a API e salvo no state;
-    const { match } = this.props;
-    const { params } = match;
-    // const { musics, musicsOrigin } = this.state; não sei pq, nao precisei desestruturar segundo o Lint, so obedece rs.
-    const newResult = await getMusics(params.id);
-    this.setState({ musicsOrigin: newResult[0], musics: newResult });
-  }
-
-  componentDidUpdate = async () => {
+  /*   componentDidUpdate() {
     this.toUpdateAlbum();
   }
 
@@ -42,10 +33,18 @@ export default class Album extends Component {
     const result2 = await getFavoriteSongs();
     const { loading } = this.state;
     if (!loading) {
-      this.setState({
-        getFavorites: result2,
-      });
-    }
+    this.setState({
+      getFavorites: result2,
+    });
+  } */
+
+  pegarMusicas = async () => {
+    // atraves do match consigo ter o id da Route que fica guardado no params - pego de la o id e pego a API e salvo no state;
+    const { match } = this.props;
+    const { params } = match;
+    // const { musics, musicsOrigin } = this.state; não sei pq, nao precisei desestruturar segundo o Lint, so obedece rs.
+    const newResult = await getMusics(params.id);
+    this.setState({ musicsOrigin: newResult[0], musics: newResult });
   }
 
   render() {

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
-import Loading from '../components/Loading';
+// import Loading from '../components/Loading';
 import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
+import Loading from '../components/Loading';
 
 export default class Favorites extends Component {
   constructor() {
@@ -18,32 +19,19 @@ export default class Favorites extends Component {
     const result = await getFavoriteSongs();
     this.setState({
       getFavoritesPage: result,
-      getFavoritesPage2: result[0],
+      // getFavoritesPage2: result[0],
     });
   }
 
-removedFromFavoritesPage = async ({ target }) => {
-  const { checked } = target;
-  if (!checked) {
-    this.setState({
-      loading: true,
-    });
+  componentDidUpdate() {
+    this.toUpdateFavorites();
   }
-  await removeSong(music);
-}
-
-componentDidUpdate = async () => {
-  this.toUpdateFavorites();
-}
 
 toUpdateFavorites = async () => {
   const result2 = await getFavoriteSongs();
-  const { loading } = this.state;
-  if (!loading) {
-    this.setState({
-      getFavoritesPage: result2,
-    });
-  }
+  this.setState({
+    getFavoritesPage: result2,
+  });
 }
 
 /*   this.setState({
@@ -51,17 +39,29 @@ toUpdateFavorites = async () => {
     getFavoritesPage: result2,
   });
  */
+  removedFromFavoritesPage = async ({ target }) => {
+    const { checked } = target;
+    if (!checked) {
+      const removed = await removeSong(music);
+      this.setState({ loading: true, getFavoritesPage: removed });
+      const result2 = await getFavoriteSongs();
+      /*  const { loading } = this.state;
+      if (!loading) { */
+      this.setState({
+        getFavoritesPage: result2,
+      });
+    }
+  }
 
-render() {
-  const { getFavoritesPage, loading, getFavoritesPage2 } = this.state;
-
-  if (loading) return <Loading />;
-  return (
-    <div data-testid="page-favorites">
-      <Header />
-      <h1>Favorites songs</h1>
-      {
-        (getFavoritesPage.length > 0)
+  render() {
+    const { getFavoritesPage, getFavoritesPage2, loading } = this.state;
+    if (loading) return <Loading />;
+    return (
+      <div data-testid="page-favorites">
+        <Header />
+        <h1>Favorites songs</h1>
+        {
+          (getFavoritesPage.length > 0)
             && (
               <section>
                 <h4>
@@ -93,10 +93,10 @@ render() {
               </section>
             )
             /*  : <p> Não há musicas favoritadas</p> */
-      }
-    </div>
-  );
-}
+        }
+      </div>
+    );
+  }
 }
 /*
   ✕ Será validado se a lista de músicas favoritas é atualizada ao remover uma música da lista (1523 ms)

@@ -31,7 +31,11 @@ export default class Profile extends Component {
         data-testid="page-profile"
       >
         <Header />
-        Profile
+        <Link
+          to="/profile/edit"
+        >
+          Editar perfil
+        </Link>
         <section>
           <p>
             { dataUser.name }
@@ -49,11 +53,7 @@ export default class Profile extends Component {
           <p>
             { dataUser.description}
           </p>
-          <Link
-            to="/profile/edit"
-          >
-            Editar perfil
-          </Link>
+
         </section>
       </div>
     );

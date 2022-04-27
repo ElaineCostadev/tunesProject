@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { /* Link */ Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import { getUser, updateUser } from '../services/userAPI';
 
@@ -12,8 +13,7 @@ class ProfileEdit extends Component {
       descriptionState: '',
       imageState: '',
       buttonSalveDisabled: false,
-      // updateProfileUser: '', // salva o novo objeto com as alteracoes do usuario
-      savedNewProfileUser: '', // verificacr se chamou a Api updateUser - retorna 'OK'
+      savedNewProfileUser: false, // verifica se chamou a Api updateUser - retorna 'OK'
     };
   }
 
@@ -23,13 +23,13 @@ class ProfileEdit extends Component {
 
   // Pega os dados na API em getUser
   getUserApi = async () => {
-    const resultUserEdit = await getUser();
+    const resultGetUser = await getUser();
     this.setState({
       // dados do usuario anterior a alteração - deixam o formulario ja preenchido com essas informações
-      nameState: resultUserEdit.name,
-      emailState: resultUserEdit.email,
-      descriptionState: resultUserEdit.description,
-      imageState: resultUserEdit.image,
+      nameState: resultGetUser.name,
+      emailState: resultGetUser.email,
+      descriptionState: resultGetUser.description,
+      imageState: resultGetUser.image,
     });
   }
 
@@ -53,41 +53,38 @@ onInputChange = ({ target }) => {
   });
 }
 
-updateUserApi = async () => {
-  const { nameState, emailState, descriptionState, imageState } = this.state;
-  await updateUser({
-    name: nameState,
-    email: emailState,
-    image: descriptionState,
-    description: imageState,
-  });
-}
-
-// Enviar o formulario - salvo os dados alterados em um novo obj, pegando os dados anteriores + os novos
+// Enviar o formulario - salva os dados alterados no storage com a funcao updateUser e atualiza o state.
 handleSubmit = async (e) => {
   e.preventDefault();
-  console.log('entrou na handleSubmit');
+  const { nameState, emailState, descriptionState,
+    imageState } = this.state;
+  const { history } = this.props;
+  const resultUpdateUser = await updateUser({
+    name: nameState,
+    email: emailState,
+    image: imageState,
+    description: descriptionState,
+  });
+  this.setState({ savedNewProfileUser: resultUpdateUser });
 
-  /*   const newProfileUser = {
-    nameState, emailState, descriptionState, imageState,
-  }; */
-  /*   this.setState((prevState) => ({
-    updateProfileUser: [...prevState.updateProfileUser, resultProfileEdit],
-  })); */
-
-  // this.updateApi();
-}
+  history.push('/profile');
+};
+/* this.setState({ savedNewProfileUser: true });
+}; */
 
 render() {
   const { nameState, emailState, descriptionState, imageState,
-    buttonSalveDisabled, /* updateProfileUser */ savedNewProfileUser } = this.state;
-
-  if (savedNewProfileUser) return <Redirect to="/profile" />;
-
+    buttonSalveDisabled, savedNewProfileUser } = this.state;
+  // if (loading) return <Loading />;
+  // if (savedNewProfileUser === 'OK') return <Redirect exact to="/profile" />;
   return (
     <div data-testid="page-profile-edit">
       <Header />
-      <h2>ProfileEdit</h2>
+      <Link
+        to="/profile/edit"
+      >
+        Editar perfil
+      </Link>
       <form onSubmit={ this.handleSubmit }>
         <label htmlFor="ProfileEdit">
           Nome
@@ -147,34 +144,21 @@ render() {
           </button>
         </label>
       </form>
-
-      {/* {
-            updateProfileUser.map((userData, index) => (
-              <section
-                key={ index }
-              >
-                <p>
-                  { userData.name }
-                </p>
-                <p>
-                  { userData.email }
-                </p>
-                <img
-                  src={ userData.image }
-                  alt="Imagem do Perfil"
-                  data-testid="profile-image"
-                />
-                <p>
-                  { userData.description}
-                </p>
-              </section>
-            ))
-          } */}
+      {
+        (savedNewProfileUser) && <Redirect exact to="/profile" />
+      }
     </div>
   );
 }
 }
+
 export default ProfileEdit;
+
+ProfileEdit.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 /*
 ✓ Será validado se é feita a requisição para getUser para recuperar as informações da pessoa logada (1553 ms)
@@ -200,3 +184,29 @@ export default ProfileEdit;
       }); */
 // if (savedNewProfileUser) return <Redirect to="/profile" />;
 //  }
+
+/*     {
+        (savedNewProfileUser === "OK") ? <Redirect to="/profile" />
+          : (
+            updateProfileUser.map((userData, index) => (
+              <section
+                key={ index }
+              >
+                <p>
+                  { userData.name }
+                </p>
+                <p>
+                  { userData.email }
+                </p>
+                <img
+                  src={ userData.image }
+                  alt="Imagem do Perfil"
+                  data-testid="profile-image"
+                />
+                <p>
+                  { userData.description}
+                </p>
+              </section>
+            ))
+          )
+      } */

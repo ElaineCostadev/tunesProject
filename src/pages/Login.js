@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
+import logoTrybeTunes from '../images/logoTrybeTunes.svg';
+import styles from './Login.module.css';
 
 export default class Login extends Component {
   constructor() {
@@ -49,9 +51,11 @@ export default class Login extends Component {
 
     return (
       <div
+        className={ styles.container }
         data-testid="page-login"
       >
         Login
+        <img src={ logoTrybeTunes } alt="logo do TrybeTunes" />
         <form>
           <label htmlFor="login">
             <input

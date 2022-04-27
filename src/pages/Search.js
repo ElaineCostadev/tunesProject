@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 import CardAlbum from '../components/CardAlbum';
+import styles from './Search.module.css';
 
 export default class Search extends Component {
   constructor() {
@@ -50,7 +51,7 @@ export default class Search extends Component {
   render() {
     const { buttonSearch, loading, name, albuns } = this.state;
     return (
-      <div data-testid="page-search">
+      <div data-testid="page-search" className={ styles.container }>
         <Header />
         Search - pagina de busca, dentro do site, após o login dar certo.
         {

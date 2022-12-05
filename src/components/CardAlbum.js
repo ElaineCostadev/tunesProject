@@ -9,20 +9,18 @@ export default class CardAlbum extends Component {
       collectionPrice, artworkUrl100, releaseDate,
       trackCount } = this.props;
     return (
-      <div className="card-albuns">
-        <p artistName={ artistName } />
-        <p collectionId={ collectionId } />
-        <p>
-          Nome:
+      <main className="card-albuns">
+        <header artistName={ artistName } />
+        <header collectionId={ collectionId } />
+        <h3>
           { collectionName }
-        </p>
+        </h3>
+        <img src={ artworkUrl100 } alt="Imagem do Album" />
         <p>
           R$
           { collectionPrice }
         </p>
-        <img src={ artworkUrl100 } alt="Imagem do Album" />
         <p>
-          Data de Lançamento:
           { releaseDate }
         </p>
         <p>
@@ -32,9 +30,9 @@ export default class CardAlbum extends Component {
           to={ `/album/${collectionId}` }
           data-testid={ `link-to-album-${collectionId}` }
         >
-          Link para o album
+          Album
         </Link>
-      </div>
+      </main>
     );
   }
 }

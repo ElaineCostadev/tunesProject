@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import Loading from '../components/Loading';
 import CardAlbum from '../components/CardAlbum';
-import styles from './Search.module.css';
+import './Search.css';
 
 export default class Search extends Component {
   constructor() {
@@ -51,20 +51,18 @@ export default class Search extends Component {
   render() {
     const { buttonSearch, loading, name, albuns } = this.state;
     return (
-      <div data-testid="page-search" className={ styles.container }>
+      <div data-testid="page-search" className="search-container">
         <Header />
-        Search - pagina de busca, dentro do site, após o login dar certo.
         {
           loading
             ? (<Loading />)
             : (
-              <form>
+              <form className="form-container">
                 <label htmlFor="search">
-                  Arista ou Banda
                   <input
                     type="text"
                     name="name"
-                    placeholder="Digite o nome do artista ou banda"
+                    placeholder="Nome do artista /banda"
                     onChange={ this.onInputChange }
                     data-testid="search-artist-input"
                   />
@@ -83,28 +81,29 @@ export default class Search extends Component {
         }
         {
           (albuns.length > 0)
-            ? (`Resultado de álbuns de: ${name}`)
+            ? <p>{(`Resultado de álbuns de: ${name}`)}</p>
             : (<p>Nenhum álbum foi encontrado</p>)
         }
-        <ul>
-          {
-            albuns.map((album) => (
-              <li
-                key={ album.collectionId }
-              >
-                <CardAlbum
-                  artistName={ album.artistName }
-                  collectionId={ album.collectionId }
-                  collectionName={ album.collectionName }
-                  collectionPrice={ album.collectionPrice }
-                  artworkUrl100={ album.artworkUrl100 }
-                  releaseDate={ album.releaseDate }
-                  trackCount={ album.trackCount }
-                />
-              </li>
-            ))
-          }
-        </ul>
+        {/*  <ul> */}
+        {
+          albuns.map((album) => (
+            <div
+              className="album-container"
+              key={ album.collectionId }
+            >
+              <CardAlbum
+                artistName={ album.artistName }
+                collectionId={ album.collectionId }
+                collectionName={ album.collectionName }
+                collectionPrice={ album.collectionPrice }
+                artworkUrl100={ album.artworkUrl100 }
+                releaseDate={ album.releaseDate }
+                trackCount={ album.trackCount }
+              />
+            </div>
+          ))
+        }
+        {/*  </ul> */}
 
       </div>
     );

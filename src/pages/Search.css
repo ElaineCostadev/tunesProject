@@ -1,0 +1,46 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 2cm;
+}
+
+.form-container input {
+  border: 1px solid #3d495cbd;
+  background-color: transparent;
+  border-radius: 6px;
+  font-size: 17px;
+  outline: none;
+  padding: 12px 166px;
+  /* position: relative; */
+  text-transform: uppercase;
+  width: 519px;
+}
+
+.form-container button {
+  background: #0039e5ae;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  font-family: Verdana , Geneva , Tahoma , sans-serif;
+  font-size: 18px;
+  font-style: normal;
+  padding: 8px 32px;
+}
+
+.search-container p {
+  font-style: italic;
+  margin: 0.6cm 0 0 30%;
+  font-size: large;
+}
+
+
+.form-container ::placeholder {
+  font-size: 8px;
+}
+
+.search-container div {
+  /* background-color: blue; */
+  display: inline-block;
+  /* display: flex;
+  flex-direction: column; */
+  margin-top: 2cm;
+}

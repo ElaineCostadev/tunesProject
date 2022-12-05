@@ -2,10 +2,10 @@
   --accent: #003BE5;
   --dark-green: #023031;
   --ligth-green: #036B52;
-  --main-color: #FAFAFA;
+  --main-color: #efe7e7;
   --secondary-color: #181725;
   --white: white;
-
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 body {

@@ -15,8 +15,6 @@ class App extends React.Component {
     return (
       <main>
 
-        <p>TrybeTunes App</p>
-
         <div>
           <Switch>
             <Route path="/search" component={ Search } />

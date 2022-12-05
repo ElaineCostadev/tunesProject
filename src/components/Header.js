@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Loading from './Loading';
 import { getUser } from '../services/userAPI';
+import logoTrybeTunes from '../images/logoTrybeTunes.svg';
+import './Header.css';
 
 export default class Header extends Component {
   constructor() {
@@ -35,19 +37,45 @@ export default class Header extends Component {
   render() {
     const { loading, name } = this.state;
     return (
-      <header data-testid="header-component">
-        {
-          (loading)
-            ? <Loading />
-            : (
-              <h2 data-testid="header-user-name">
-                { name }
-              </h2>
-            )
-        }
-        <Link data-testid="link-to-search" to="/search">Search  </Link>
-        <Link data-testid="link-to-favorites" to="/favorites">Favorites  </Link>
-        <Link data-testid="link-to-profile" to="/profile">Profile</Link>
+      <header data-testid="header-component" className="header">
+        <img src={ logoTrybeTunes } alt="logo do TrybeTunes" />
+        <section>
+          {
+            (loading)
+              ? <Loading />
+              : (
+                <h2 data-testid="header-user-name">
+                  { name }
+                </h2>
+              )
+          }
+        </section>
+
+        <nav>
+          <Link
+            data-testid="link-to-search"
+            to="/search"
+            className="search"
+          >
+            Search
+          </Link>
+
+          <Link
+            data-testid="link-to-favorites"
+            to="/favorites"
+            className="favorites"
+          >
+            Favorites
+          </Link>
+
+          <Link
+            data-testid="link-to-profile"
+            to="/profile"
+            className="profile"
+          >
+            Profile
+          </Link>
+        </nav>
       </header>
     );
   }

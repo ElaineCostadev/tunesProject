@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { addSong, removeSong, getFavoriteSongs } from '../services/favoriteSongsAPI';
 import Loading from './Loading';
+import styles from './MusicCard.css';
 
 export default class MusicCard extends Component {
   constructor() {
@@ -56,35 +57,38 @@ render() {
 
   // if (loading) return <Loading />;
   return (
-    <div className="music-card">
-      {
-        (loading) ? <Loading />
-          : (
-            <div>
-              <p trackname={ music.trackName } />
+    <section className="section-MusicCard">
 
-              <audio data-testid="audio-component" src={ music.previewUrl } controls>
-                <track kind="captions" />
-                O seu navegador não suporta o elemento
-                <code>audio</code>
-              </audio>
-              <form>
-                <label htmlFor="Favorita">
-                  Favorita
-                  <input
-                    checked={ favoriteChecked }
-                    onChange={ this.addMusicFavorites }
-                    id="Favorita"
-                    name="Favorita"
-                    data-testid={ `checkbox-music-${music.trackId}` }
-                    type="checkbox"
-                  />
-                </label>
-              </form>
-            </div>
-          )
-      }
-    </div>
+      <div className="music-card">
+        {
+          (loading) ? <Loading />
+            : (
+              <div>
+                <p trackname={ music.trackName } />
+
+                <audio data-testid="audio-component" src={ music.previewUrl } controls>
+                  <track kind="captions" />
+                  O seu navegador não suporta o elemento
+                  <code>audio</code>
+                </audio>
+                <form>
+                  <label htmlFor="Favorita">
+                    Favorita
+                    <input
+                      checked={ favoriteChecked }
+                      onChange={ this.addMusicFavorites }
+                      id="Favorita"
+                      name="Favorita"
+                      data-testid={ `checkbox-music-${music.trackId}` }
+                      type="checkbox"
+                    />
+                  </label>
+                </form>
+              </div>
+            )
+        }
+      </div>
+    </section>
   );
 }
 }

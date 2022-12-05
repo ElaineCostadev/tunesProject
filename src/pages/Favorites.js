@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import { getFavoriteSongs, removeSong } from '../services/favoriteSongsAPI';
 import MusicCard from '../components/MusicCard';
 import Loading from '../components/Loading';
+import styles from './Favorites.module.css';
 
 export default class Favorites extends Component {
   constructor() {
@@ -57,7 +58,7 @@ toUpdateFavorites = async () => {
     const { getFavoritesPage, getFavoritesPage2, loading } = this.state;
     if (loading) return <Loading />;
     return (
-      <div data-testid="page-favorites">
+      <div data-testid="page-favorites" className={ styles.container }>
         <Header />
         <h1>Favorites songs</h1>
         {

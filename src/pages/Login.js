@@ -54,7 +54,6 @@ export default class Login extends Component {
         className={ styles.container }
         data-testid="page-login"
       >
-        Login
         <img src={ logoTrybeTunes } alt="logo do TrybeTunes" />
         <form>
           <label htmlFor="login">

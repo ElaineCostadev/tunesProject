@@ -1,3 +1,60 @@
-li {
-  list-style-type: none;
+.card-albuns {
+  align-content:center;
+  align-items: center;
+  background: #ffffff62;
+  border: 1px solid #e1e5eba8;
+  border-radius: 10px;
+  border-radius: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.14), 0 1px 3px rgba(0, 0, 0, 0.089);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content:flex-start;
+  margin-left: 1cm;
+  padding: 16px 13px 25px 16px;
+  text-align: right;
+}
+
+.card-albuns main {
+  display: flex;
+} 
+
+.card-albuns img {
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 250px;
+}
+
+.card-albuns p {
+  text-align:start;
+  height: 17px;
+  font-family: 'Verdana';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 150%;
+  color: #3D495C;
+  align-self: flex-start;
+  letter-spacing: 2px;
+  word-spacing: 5px;
+}
+
+.card-albuns h3 {
+  text-align: center;
+  font-weight: 100px;
+  width: 258px;
+  font-family: 'Verdana';
+  font-weight: 900;
+  font-size: 20px;
+  color: #3D495C;
+  margin: 8px 0px;
+}
+
+.card-albuns a {
+  text-decoration: none;
+  color: var(--dark-green);
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #036b533f;
+  padding: 0.6em ;
+  border-radius: 15px;
 }
